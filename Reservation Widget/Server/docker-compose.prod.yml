@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: reservation_widget_production
+    image: reservation_widget_production
+    build:
+      context: .
+      target: production

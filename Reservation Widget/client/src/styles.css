@@ -1,36 +1,427 @@
-  .suggestions {
-    margin-top: 1px;
-    height: max-content;
-    overflow: hidden;
-    padding-left: 0;
-    font-size: 90%;
-    animation: show 600ms 100ms cubic-bezier(0.38, 0.97, 0.56, 0.76) forwards;
-    opacity: 0;
-    transform: rotateX(-90deg);
-    transform-origin: top center;
-    z-index: 100;
-    list-style: none;
+/* Global overwrite */
+mark{
+  padding: 0;
+  background-color: transparent;
+  font-weight: 600;
+}
+#root{
+  background-color: transparent;
+}
+
+/* Classes - Datalist input */
+.react-datalist-input__container > * {
+  box-sizing: border-box;
+}
+  
+.react-datalist-input__container {
+  width: 100%;
+  position: relative;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --gray: rgb(200, 200, 200);
+  --padding: 5px;
+  --border-radius: 5px;
+  --border: 1px solid var(--gray);
+}
+
+.react-datalist-input__textbox {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 100%;
+  white-space: nowrap;
+  padding: .375rem .75rem;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .375rem;
+  font-size: 1rem;
+  max-height: 38px;
+  box-shadow: none; 
+  outline: none;
+}
+
+.react-datalist-input__listbox {
+  width: 100%;
+  position: absolute;
+  margin: 2px 0 0 0;
+  padding: 0;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  box-shadow: var(--shadow);
+  z-index: 9999;
+}
+
+.react-datalist-input__listbox-option {
+  z-index: 9999;
+  width:auto;
+  cursor: pointer;
+  margin: 0;
+  padding: var(--padding);
+}
+
+.react-datalist-input__listbox-option:hover {
+  background-color: var(--gray);
+  font-weight: 600;
+  width:auto;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+/* Classes Date/time picker */
+.react-datetime-picker {
+  display: inline-flex;
+  position: relative;
+  min-width: 100%;
+}
+.react-datetime-picker,
+.react-datetime-picker *,
+.react-datetime-picker *:before,
+.react-datetime-picker *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-datetime-picker--disabled {
+  background-color: #f0f0f0;
+  color: #6d6d6d;
+}
+.react-datetime-picker__wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  width: 100%;
+  white-space: nowrap;
+  padding: .375rem .75rem;
+  color: #212529;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: .375rem;
+  font-size: 1rem;
+  max-height: 38px;
+}
+.react-datetime-picker__inputGroup__hour{
+  margin-left: 1.5%;
+}
+.react-datetime-picker__inputGroup {
+  margin-left: -2px;
+  min-width: calc(4px + (4px * 3) +  0.54em * 6  +  0.217em * 2);
+  flex-grow: 1;
+}
+.react-datetime-picker__inputGroup__divider {
+  padding: 1px 0;
+  white-space: pre;
+}
+.react-datetime-picker__inputGroup__input {
+  min-width: 0.54em;
+  height: calc(100% - 2px);
+  position: relative;
+  border: 0;
+  background: none;
+  font: inherit;
+  box-sizing:content-box;
+  width: fit-content;
+  -moz-appearance: textfield;
+  padding: 0 0.6%;
+  outline: none;
+  box-shadow: none;
+}
+.react-datetime-picker__inputGroup__input::-webkit-outer-spin-button,
+.react-datetime-picker__inputGroup__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+
+}
+.react-datetime-picker__inputGroup__input:invalid {
+  background: rgba(255, 0, 0, 0.1);
+}
+.react-datetime-picker__inputGroup__input--hasLeadingZero {
+  margin-left: -0.54em;
+  padding-left: calc(1px +  0.54em);
+}
+.react-datetime-picker__inputGroup__amPm {
+  font: inherit;
+  -moz-appearance: menulist;
+  margin-left: 1.5%;
+}
+.react-datetime-picker__button {
+  border: 0;
+  background: transparent;
+  padding: 4px 6px;
+  
+}
+.react-datetime-picker__button:enabled {
+  cursor: pointer;
+}
+.react-datetime-picker__button:enabled:hover .react-datetime-picker__button__icon,
+.react-datetime-picker__button:enabled:focus .react-datetime-picker__button__icon {
+  stroke: #0078d7;
+}
+.react-datetime-picker__button:disabled .react-datetime-picker__button__icon {
+  stroke: #6d6d6d;
+}
+.react-datetime-picker__button svg {
+  display: inherit;
+}
+.react-datetime-picker__calendar,
+.react-datetime-picker__clock {
+  max-width:100%;
+  position: absolute;
+  z-index: 1;
+}
+.react-datetime-picker__calendar--closed,
+.react-datetime-picker__clock--closed {
+  display: none;
+}
+.react-datetime-picker__calendar .react-calendar {
+  border-width: thin;
+}
+.react-datetime-picker__clock {
+  height: 200px;
+  padding: 25px;
+  background-color: white;
+  border: thin solid #a0a096;
+}
+
+/* Classes - Calendar */
+.react-calendar {
+  width: 350px;
+  max-width: 100%;
+  background: white;
+  border: 1px solid #a0a096;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+.react-calendar__navigation {
+  display: flex;
+  height: 44px;
+  margin-bottom: 1em;
+}
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+}
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+.react-calendar__month-view__days__day--weekend {
+  color: #d10000;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+}
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: #e6e6e6;
+}
+.react-calendar__tile--now {
+  background: #ffff76;
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #ffffa9;
+}
+.react-calendar__tile--hasActive {
+  background: #76baff;
+}
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #a9d4ff;
+}
+.react-calendar__tile--active {
+  background: #006edc;
+  color: white;
+}
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #1087ff;
+}
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.quantity-button {
+  cursor: pointer;
+  border: 1px solid #989898 !important;
+  border-radius:50%;
+  color:#989898 !important;
+  width:25px;
+  height:25px;
+  font-size: 11px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quantity-button:is(:hover, :active, :focus) {
+	color:#6fbb52 !important;
+	border: 1px solid #6fbb52 !important;
+}
+
+.quantity-down {
+	background-color:transparent !important; 
+	outline:none !important;
+}
+.quantity-up {
+	background-color:transparent !important; 
+	outline:none !important;
+}
+
+/* Commented */
+/* @keyframes example {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:200px; top:0px;}
+  50%  {background-color:blue; left:200px; top:200px;}
+  75%  {background-color:green; left:0px; top:200px;}
+  100% {background-color:red; left:0px; top:0px;}
+}
+
+.react-datalist-input__listbox-option:focus {
+  background-color: red;
+  animation-name: example;
+  animation-duration: 4s;
+  width:auto;
+} */
+
+
+/* @keyframes mymove {
+  0%   { background: rgb(179, 179, 179); font-weight: 500;}
+  100% { background: rgb(150, 150, 150); font-weight: 600;}
+} */
+
+/* @-webkit-keyframes pulse {
+  from { transform: scale(1)   ; opacity: 1;    }
+  to   { transform: scale(0.75); opacity: 0.25; }
+} */
+
+/* .suggestions {
+  height: max-content;
+  padding-left: 0;
+  font-size: 90%;
+  animation: show 600ms 100ms cubic-bezier(0.38, 0.97, 0.56, 0.76) forwards;
+  opacity: 0;
+  transform: rotateX(-90deg);
+  transform-origin: top center;
+  z-index: 100;
+  list-style: none;
+  background-color: white;
+  border: 1px solid #ced4da;
+  border-top: none;
+  border-radius: .375rem;
+  border-bottom: none;
+  position: absolute;
+  width: max-content;
+}
+.inputGroupBorder{
+  border: '1px solid #ced4da';
+  border-radius: .375rem;
+}
+input[list="languages"] {
+  width: 12em;
+  border: none;
+  background: #eee;
+}
+select {
+  width: 12em;
+  margin: 0;
+  margin-left: -12.75em;
+}
+.suggestions li {
+  padding: 0.2rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px solid #ced4da;
+  list-style: none;
+}
+@keyframes show {
+  100% {
+    opacity: 1;
+    transform: none;
   }
-  .inputGroupBorder{
-    border: 1px solid #ced4da;
-    border-radius: .375rem;
-  }
-  .suggestions li {
-    padding: 0.2rem;
-    padding-left: 10px;
-    border-bottom: 1px solid #ced4da;
-    list-style: none;
-  }
-  @keyframes show {
-    100% {
-      opacity: 1;
-      transform: none;
-    }
-  }
-  .suggestion-active,
-  .suggestions li:hover {
-    transition: all 0.1s ease-in;
-    background-color: #ced4da;
-    cursor: pointer;
-    font-weight: 600;
-  }
+}
+.suggestion-active,
+.suggestions li:hover {
+  transition: all 0.1s ease-in;
+  background-color: #70bb5252;
+  cursor: pointer;
+  font-weight: 600;
+} */
